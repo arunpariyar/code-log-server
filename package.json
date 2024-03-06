@@ -4,9 +4,9 @@
   "description": "backend API for product feedback",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist & npx tsc",
+    "build": "npm i && rimraf dist && npx tsc",
     "prestart": "npm run build",
-    "start": "nodemon dist/index.js",
+    "start": "node dist/index.js",
     "preserve": "npm run build",
     "serve": "concurrently \"npx tsc -w\" \" nodemon dist/index.js\""
   },
@@ -17,6 +17,7 @@
     "@types/node": "^20.11.24",
     "express": "^4.18.3",
     "install": "^0.13.0",
+    "rimraf": "^5.0.5",
     "typescript": "^5.3.3"
   }
 }
