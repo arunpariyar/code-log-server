@@ -1,0 +1,22 @@
+{
+  "name": "product-feedback-api",
+  "version": "1.0.0",
+  "description": "backend API for product feedback",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist & npx tsc",
+    "prestart": "npm run build",
+    "start": "nodemon dist/index.js",
+    "preserve": "npm run build",
+    "serve": "concurrently \"npx tsc -w\" \" nodemon dist/index.js\""
+  },
+  "author": "arunpariyar",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.24",
+    "express": "^4.18.3",
+    "install": "^0.13.0",
+    "typescript": "^5.3.3"
+  }
+}
