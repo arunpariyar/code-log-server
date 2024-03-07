@@ -32,7 +32,7 @@ export const createUser = async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    res.end({ error: true, message: error });
+    res.json({ error: true, message: error });
   }
 };
 
