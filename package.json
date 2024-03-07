@@ -4,7 +4,7 @@
   "description": "backend API for product feedback",
   "main": "index.js",
   "scripts": {
-    "build": "npm i && rimraf dist && npx tsc",
+    "build": "npm i && npx prisma generate --schema=./src/prisma/schema.prisma && npx prisma migrate dev --name init --schema ./src/prisma/schema.prisma && npx tsc",
     "prestart": "npm run build",
     "start": "node dist/index.js",
     "preserve": "npm run build",
