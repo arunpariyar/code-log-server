@@ -12,17 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUser = void 0;
+exports.login = void 0;
 const db_1 = __importDefault(require("../db"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) {
+        const { email, password } = req.body;
+        if (!email || !password) {
             return res.status(400).json({
                 error: true,
-                message: 'Name, email and password are required',
+                message: 'email and password are required',
             });
         }
         const existingUser = yield db_1.default.user.findUnique({
@@ -31,35 +31,29 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             },
         });
         if (existingUser) {
-            return res
-                .status(400)
-                .json({ error: true, message: 'Email already exists' });
+            const isValid = yield bcrypt_1.default.compare(password, existingUser.password);
+            if (isValid === true && process.env.JWT_SECRET) {
+                const token = jsonwebtoken_1.default.sign({ id: existingUser.id }, process.env.JWT_SECRET, {
+                    expiresIn: process.env.JWT_EXPIRES_IN,
+                });
+                return res.status(200).json({
+                    error: false,
+                    token,
+                });
+            }
         }
-        const hashPassword = yield bcrypt_1.default.hash(password, 10);
-        const newUser = yield db_1.default.user.create({
-            data: {
-                name,
-                email,
-                password: hashPassword,
-            },
+        res.status(401).json({
+            error: true,
+            message: 'Incorrect email or password',
         });
-        if (process.env.JWT_SECRET) {
-            const token = jsonwebtoken_1.default.sign({ id: newUser.id }, process.env.JWT_SECRET, {
-                expiresIn: process.env.JWT_EXPIRES_IN,
-            });
-            res.status(200).json({
-                error: false,
-                token,
-                data: {
-                    user: newUser,
-                },
-            });
-        }
     }
     catch (error) {
-        res.status(400).json({ error: true, message: error });
+        res.status(500).json({
+            error: true,
+            message: error,
+        });
     }
 });
-exports.createUser = createUser;
-const userController = { createUser: exports.createUser };
-exports.default = userController;
+exports.login = login;
+const authController = { login: exports.login };
+exports.default = authController;
