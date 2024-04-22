@@ -21,3 +21,6 @@ function hashPassword(password) {
     });
 }
 exports.hashPassword = hashPassword;
+// export async function changedPasswordAfter(JWTTimestam-){
+//   if(this){}
+// }
