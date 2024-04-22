@@ -2,7 +2,6 @@ import prisma from '../db';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
-import { fullUser } from '../interface/user';
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -29,7 +28,7 @@ export const createUser = async (req: Request, res: Response) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    const newUser: fullUser = await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         name,
         email,
