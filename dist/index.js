@@ -8,5 +8,5 @@ const dotenv_1 = require("dotenv");
 (0, dotenv_1.config)();
 const port = process.env.PORT || '8001';
 app_1.default.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`🌻 Server running on port ${port}`);
 });
