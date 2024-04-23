@@ -13,31 +13,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ProductRequest {
-  id          Int       @id @default(autoincrement())
-  title       String
-  category    String
-  upvotes     Int
-  status      String
-  description String
-  comments    Comment[]
-}
-
-model Comment {
-  id               Int             @id @default(autoincrement())
-  content          String
-  author           User            @relation(fields: [authorId], references: [id])
-  authorId         Int
-  ProductRequest   ProductRequest? @relation(fields: [productRequestId], references: [id])
-  productRequestId Int?
-}
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
+  id        String      @id @default(uuid())
+  email     String      @unique
   name      String
   password  String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Comment   Comment[]
+  comments   Comment[]
+  // feedbacks  Feedback[] //TODO bring it back later  
+}
+
+
+model Feedback {
+  id          String      @id @default(uuid())
+  title       String
+  category    String
+  upvotes     Int       @default(autoincrement())
+  status      Status    @default(Planned)
+  description String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+    //TODO - bring this code back later when user in integrated
+   // comments    Comment[]
+  // author      User @relation(fields: [authorId], references: [id])
+  // authorId    String
+}
+
+model Comment {
+  id               String          @id @default(uuid())
+  content          String
+  author           User            @relation(fields: [authorId], references: [id])
+  authorId         String
+  // feedback   Feedback       @relation(fields: [feedbackId], references: [id]) //TODO fix later
+  feedbackId String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+enum Status {
+  Planned
+  InProgress
+  Live
 }

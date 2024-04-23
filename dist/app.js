@@ -14,6 +14,11 @@ if (process.env.NODE_ENV === 'development') {
     app.use((0, morgan_1.default)('tiny'));
 }
 app.use(express_1.default.json());
+//for debugging purpose
+// app.use((req: Request, res: Response, next: NextFunction) => {
+//   console.log('💀', req.headers);
+//   next();
+// });
 app.use('/api/signup', userRoutes_1.default);
 app.use('/api/login', authRoutes_1.default);
 exports.default = app;

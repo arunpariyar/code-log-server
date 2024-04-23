@@ -4,3 +4,8 @@ export async function hashPassword(password: string) {
   const hashedPassword = await bcrypt.hash(password, 12);
   console.log(hashPassword);
 }
+
+// export async function changedPasswordAfter(JWTTimestam-){
+//   if(this){}
+
+// }
