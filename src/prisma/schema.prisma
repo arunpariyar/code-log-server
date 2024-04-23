@@ -22,7 +22,7 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   comments   Comment[]
-  feedbacks  Feedback[]
+  // feedbacks  Feedback[] //TODO bring it back later  
 }
 
 
@@ -30,14 +30,15 @@ model Feedback {
   id          String      @id @default(uuid())
   title       String
   category    String
-  upvotes     Int
-  status      String
+  upvotes     Int       @default(autoincrement())
+  status      Status    @default(Planned)
   description String
-  comments    Comment[]
-  author      User @relation(fields: [authorId], references: [id])
-  authorId    String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+    //TODO - bring this code back later when user in integrated
+   // comments    Comment[]
+  // author      User @relation(fields: [authorId], references: [id])
+  // authorId    String
 }
 
 model Comment {
@@ -45,14 +46,14 @@ model Comment {
   content          String
   author           User            @relation(fields: [authorId], references: [id])
   authorId         String
-  feedback   Feedback       @relation(fields: [feedbackId], references: [id])
+  // feedback   Feedback       @relation(fields: [feedbackId], references: [id]) //TODO fix later
   feedbackId String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
-// enum Status {
-//   PLANNED
-//   INPROGRESS
-//   LIVE
-// }
+enum Status {
+  Planned
+  InProgress
+  Live
+}

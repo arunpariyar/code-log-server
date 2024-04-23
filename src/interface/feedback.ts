@@ -7,8 +7,9 @@ export interface Feedback {
   upvotes: number;
   status: string;
   description: string;
-  comments: Comment[];
-  authorId: string;
   createdAt: string;
   updatedAt: string;
+  //TODO bring this back again later when the user is integrated
+  // comments: Comment[];
+  // authorId: string;
 }
