@@ -32,7 +32,7 @@ model Feedback {
   category    String
   upvotes     Int       @default(autoincrement())
   status      Status    @default(Planned)
-  description String
+  detail String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
     //TODO - bring this code back later when user in integrated

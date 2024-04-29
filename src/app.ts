@@ -1,7 +1,8 @@
-import express, { Express, NextFunction, Request, Response } from 'express';
-
+import express, { Express } from 'express';
 import morgan from 'morgan';
+
 import { config } from 'dotenv';
+import cors from 'cors';
 
 import userRouter from './routes/userRoutes';
 import authRouter from './routes/authRoutes';
@@ -14,12 +15,19 @@ config();
 
 const app: Express = express();
 
+//TODO refactor here and instead of using if habe cors url in the env file
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('tiny'));
+
+  const corsConfig = {
+    origin: ['http://localhost:4200'],
+  };
+
+  app.use(cors(corsConfig));
+  console.log('dev server - cors applied 🪖');
 }
 
 app.use(express.json());
-
 //for debugging purpose
 // app.use((req: Request, res: Response, next: NextFunction) => {
 //   console.log('💀', req.headers);
