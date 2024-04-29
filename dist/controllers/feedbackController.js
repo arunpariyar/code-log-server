@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createNewFeedback = void 0;
+exports.getAllFeedbacks = exports.createNewFeedback = void 0;
 const db_1 = __importDefault(require("../db"));
 const createNewFeedback = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -25,3 +25,15 @@ const createNewFeedback = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.createNewFeedback = createNewFeedback;
+const getAllFeedbacks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allFeedbacks = yield db_1.default.feedback.findMany();
+        console.log(allFeedbacks);
+        res.send(allFeedbacks);
+    }
+    catch (error) {
+        res.status(500);
+        console.log(error);
+    }
+});
+exports.getAllFeedbacks = getAllFeedbacks;

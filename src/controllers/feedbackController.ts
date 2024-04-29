@@ -11,4 +11,14 @@ const createNewFeedback = async (req: Request, res: Response) => {
   }
 };
 
-export { createNewFeedback };
+const getAllFeedbacks = async (req: Request, res: Response) => {
+  try {
+    const allFeedbacks = await prisma.feedback.findMany();
+    res.send(allFeedbacks);
+  } catch (error) {
+    res.status(500);
+    console.log(error);
+  }
+};
+
+export { createNewFeedback, getAllFeedbacks };
