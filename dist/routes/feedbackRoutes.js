@@ -7,4 +7,5 @@ const express_1 = __importDefault(require("express"));
 const feedbackController_1 = require("../controllers/feedbackController");
 const router = express_1.default.Router();
 router.route('/').post(feedbackController_1.createNewFeedback).get(feedbackController_1.getAllFeedbacks);
+router.route('/:id').delete(feedbackController_1.deleteOneFeedback);
 exports.default = router;

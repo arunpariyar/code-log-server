@@ -12,10 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllFeedbacks = exports.createNewFeedback = void 0;
+exports.deleteOneFeedback = exports.getAllFeedbacks = exports.createNewFeedback = void 0;
 const db_1 = __importDefault(require("../db"));
 const createNewFeedback = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const { title, category, detail } = req.body;
+        if (!(title && category && detail)) {
+            return res.status(400).send('please provide all details properly');
+        }
         const newFeedback = yield db_1.default.feedback.create({ data: req.body });
         res.send(newFeedback);
     }
@@ -28,7 +32,6 @@ exports.createNewFeedback = createNewFeedback;
 const getAllFeedbacks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const allFeedbacks = yield db_1.default.feedback.findMany();
-        console.log(allFeedbacks);
         res.send(allFeedbacks);
     }
     catch (error) {
@@ -37,3 +40,21 @@ const getAllFeedbacks = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.getAllFeedbacks = getAllFeedbacks;
+const deleteOneFeedback = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const deletedFeedback = yield db_1.default.feedback.delete({
+            where: {
+                id,
+            },
+        });
+        if (deletedFeedback) {
+            res.send({ message: `feedback with id: ${id} deleted` });
+        }
+    }
+    catch (error) {
+        res.status(500);
+        res.send({ message: "Item doesn't exist" });
+    }
+});
+exports.deleteOneFeedback = deleteOneFeedback;
