@@ -2,9 +2,9 @@ name: API Tests
 run-name: Running API tests 🧪
 on:
   push:
-    branches: [develop, feat-github-actions-init]
+    branches: [develop]
   pull_request:
-    branches: [main]
+    branches: [develop]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
