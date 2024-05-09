@@ -25,6 +25,12 @@ if (process.env.NODE_ENV === 'development') {
 
   app.use(cors(corsConfig));
   console.log('dev server - cors applied 🪖');
+} else {
+  app.use(
+    cors({
+      origin: 'https://product-feedback-alpha.vercel.app/',
+    })
+  );
 }
 
 app.use(express.json());
