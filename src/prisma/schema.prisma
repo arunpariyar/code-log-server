@@ -28,7 +28,7 @@ model Feedback {
   id        String   @id @default(uuid())
   title     String
   category  String
-  upvotes   Int      @default(autoincrement())
+  upvotes   Int      @default(0)
   status    Status   @default(Planned)
   detail    String
   createdAt DateTime @default(now())
