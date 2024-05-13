@@ -14,6 +14,7 @@ const feedbackRoutes_1 = __importDefault(require("./routes/feedbackRoutes"));
 const app = (0, express_1.default)();
 //TODO refactor here and instead of using if habe cors url in the env file
 if (process.env.NODE_ENV === 'development') {
+    console.log('running in dev mode');
     app.use((0, morgan_1.default)('tiny'));
     const corsConfig = {
         origin: ['http://localhost:4200'],
@@ -22,6 +23,7 @@ if (process.env.NODE_ENV === 'development') {
     console.log('dev server - cors applied 🪖');
 }
 else {
+    console.log('running in prod mode)');
     app.use((0, cors_1.default)({
         origin: 'https://product-feedback-alpha.vercel.app/',
     }));

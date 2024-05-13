@@ -17,6 +17,7 @@ const app: Express = express();
 
 //TODO refactor here and instead of using if habe cors url in the env file
 if (process.env.NODE_ENV === 'development') {
+  console.log('running in dev mode');
   app.use(morgan('tiny'));
 
   const corsConfig = {
@@ -26,19 +27,15 @@ if (process.env.NODE_ENV === 'development') {
   app.use(cors(corsConfig));
   console.log('dev server - cors applied 🪖');
 } else {
+  console.log('running in prod mode)');
   app.use(
     cors({
-      origin: 'https://product-feedback-alpha.vercel.app/',
+      origin: ['https://product-feedback-alpha.vercel.app'],
     })
   );
 }
 
 app.use(express.json());
-//for debugging purpose
-// app.use((req: Request, res: Response, next: NextFunction) => {
-//   console.log('💀', req.headers);
-//   next();
-// });
 
 app.use('/api/signup', userRouter);
 app.use('/api/login', authRouter);
