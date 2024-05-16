@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "backend API for product feedback",
   "main": "index.js",
+  "prisma": {
+    "seed": "ts-node src/prisma/seed.ts"
+  },
   "scripts": {
     "build": "npm i && npx prisma generate --schema=./src/prisma/schema.prisma && npx prisma migrate dev --name init --schema ./src/prisma/schema.prisma && npx tsc",
     "prestart": "npm run build",
