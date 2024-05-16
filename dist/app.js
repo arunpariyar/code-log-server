@@ -25,7 +25,11 @@ if (process.env.NODE_ENV === 'development') {
 else {
     console.log('running in prod mode)');
     app.use((0, cors_1.default)({
-        origin: ['https://product-feedback-alpha.vercel.app'],
+        origin: [
+            'https://product-feedback-alpha.vercel.app',
+            'https://product-feedback-6uik-4f6qtpuw3-arun-pariyars-projects.vercel.app',
+            'https://product-feedback-server-daif.onrender.com/',
+        ],
     }));
 }
 app.use(express_1.default.json());

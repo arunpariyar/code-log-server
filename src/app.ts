@@ -30,7 +30,11 @@ if (process.env.NODE_ENV === 'development') {
   console.log('running in prod mode)');
   app.use(
     cors({
-      origin: ['https://product-feedback-alpha.vercel.app'],
+      origin: [
+        'https://product-feedback-alpha.vercel.app',
+        'https://product-feedback-6uik-4f6qtpuw3-arun-pariyars-projects.vercel.app',
+        'https://product-feedback-server-daif.onrender.com/',
+      ],
     })
   );
 }
