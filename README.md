@@ -1,4 +1,4 @@
-# Product Feedback API
+# CodeLog API
 
 This is the API for the product feedback app.
 
