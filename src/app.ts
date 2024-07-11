@@ -16,7 +16,7 @@ config();
 const app: Express = express();
 
 const corsConfig = {
-  origin: 'https://project-code-log.vercel.app/',
+  origin: 'https://project-code-log.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };
 
