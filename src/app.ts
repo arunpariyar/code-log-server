@@ -15,9 +15,14 @@ config();
 
 const app: Express = express();
 
+const corsConfig = {
+  origin: 'https://project-code-log.vercel.app/',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+};
+
 //TODO refactor here and instead of using if habe cors url in the env file
 if (process.env.NODE_ENV === 'development') {
-  console.log('running in dev mode');
+  console.log('running in dev mode 🤡');
   app.use(morgan('tiny'));
 
   const corsConfig = {
@@ -27,16 +32,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(cors(corsConfig));
   console.log('dev server - cors applied 🪖');
 } else {
-  console.log('running in prod mode)');
-  app.use(
-    cors({
-      origin: [
-        'https://project-code-log.vercel.app/',
-        'https://codelog-arun-pariyars-projects.vercel.app/',
-        'https://codelog-git-main-arun-pariyars-projects.vercel.app/',
-      ],
-    })
-  );
+  console.log('running in prod mode 🏭');
+  app.use(cors(corsConfig));
 }
 
 app.use(express.json());
