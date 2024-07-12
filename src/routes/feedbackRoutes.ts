@@ -5,6 +5,7 @@ import {
   deleteOneFeedback,
   getFeedbackById,
   updateFeedback,
+  upvoteFeedback,
 } from '../controllers/feedbackController';
 
 const router: Router = express.Router();
@@ -15,5 +16,7 @@ router
   .get(getFeedbackById)
   .delete(deleteOneFeedback)
   .patch(updateFeedback);
+
+router.route('/upvote/:id').get(upvoteFeedback);
 
 export default router;
