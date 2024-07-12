@@ -101,10 +101,30 @@ const deleteOneFeedback = async (req: Request, res: Response) => {
   }
 };
 
+//ROUTE TO UPVOTE A FEEDBACK
+const upvoteFeedback = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const updatedFeedback = await prisma.feedback.update({
+      where: { id },
+      data: {
+        upvotes: {
+          increment: 1,
+        },
+      },
+    });
+    res.status(200).send(updatedFeedback);
+  } catch (error) {
+    res.status(500);
+    res.send({ message: `Item with ${id} not found` });
+  }
+};
+
 export {
   createNewFeedback,
   getAllFeedbacks,
   deleteOneFeedback,
   getFeedbackById,
   updateFeedback,
+  upvoteFeedback,
 };
